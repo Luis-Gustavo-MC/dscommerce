@@ -1,4 +1,4 @@
-package com.LSG.dscomerce;
+package com.LSG.dscommerce;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
