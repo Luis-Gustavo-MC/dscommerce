@@ -7,13 +7,18 @@ import java.time.Instant;
 @Table(name = "tb_order")
 public class Order {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE") // Hora bd UTC
     private Instant moment;
     private OrderStatus orderStatus;
+
     @ManyToOne
     @JoinColumn(name = "client_id") // chave estrangeira
     private User client;
+
+    @OneToOne(mappedBy = "order" , cascade = CascadeType.ALL)
+    private Payment payment;
 
     public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
@@ -21,6 +26,7 @@ public class Order {
         this.orderStatus = orderStatus;
         this.client = client;
     }
+
 
     public Order(){}
 
@@ -54,5 +60,13 @@ public class Order {
 
     public void setClient(User client) {
         this.client = client;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 }
