@@ -17,6 +17,7 @@ public class Order {
     private Long id;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE") // Hora bd UTC
     private Instant moment;
+    @Column(name = "STATUS")
     private OrderStatus orderStatus;
 
     @ManyToOne
@@ -25,8 +26,10 @@ public class Order {
 
     @OneToOne(mappedBy = "order" , cascade = CascadeType.ALL)
     private Payment payment;
+
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
+
     public Order(Long id, Instant moment, OrderStatus orderStatus, User client) {
         this.id = id;
         this.moment = moment;

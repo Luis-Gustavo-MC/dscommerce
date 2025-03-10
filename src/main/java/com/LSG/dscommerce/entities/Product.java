@@ -15,22 +15,24 @@ public class Product {
     private Long id;
     private String name;
     @Column(columnDefinition = "TEXT") //mapear para um campo TEXT
-    private String descripton;
+    private String description;
     private Double price;
+    @Column(name = "IMG_URL")
     private String imgURL;
 
     @ManyToMany
     @JoinTable(name = "tb_product_category" , joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
+
     @OneToMany(mappedBy = "id.product")
     private Set<OrderItem> items = new HashSet<>();
 
     public Product(){}
 
-    public Product(Long id, String name, String descripton, Double price, String imgURL) {
+    public Product(Long id, String name, String description, Double price, String imgURL) {
         this.id = id;
         this.name = name;
-        this.descripton = descripton;
+        this.description = description;
         this.price = price;
         this.imgURL = imgURL;
     }
@@ -52,11 +54,11 @@ public class Product {
     }
 
     public String getDescripton() {
-        return descripton;
+        return description;
     }
 
-    public void setDescripton(String descripton) {
-        this.descripton = descripton;
+    public void setDescripton(String description) {
+        this.description = description;
     }
 
     public Double getPrice() {
